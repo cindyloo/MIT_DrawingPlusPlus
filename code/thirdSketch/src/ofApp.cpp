@@ -21,13 +21,30 @@ void ofApp::draw(){
     
     ofSetColor(255,255,255);
     
-
+    float time = ofGetElapsedTimef();
     for (int i = 0; i < myLines.size(); i++){
+        float pct1 = sin(i*0.1 + time);
+        float pct2 = sin(i*0.14 + time*0.3);
+        
+        // add two new colors to mesh
+        ofSetBackgroundColor(ofColor(127 + 127 * pct2));
+        ofSetColor(ofColor(127 + 127 * pct1));
         myLines[i].draw();
+       /* ofPushMatrix();
+            ofTranslate(4, 4);
+        ofSetLineWidth(3);
+            myLines[i].draw();
+        ofPopMatrix();
+        */
     }
         
+    // measure time since app was executed
+   
     
-    
+    // fmod(numer, denom) returns a floating point
+    // which is the remainder when dividing numer/denom
+    // so in this case position is a sawtooth wave between 0.0 and 1.0
+
     //ofPolyline resampled = line.getResampledBySpacing(20);
     //for (int i = 0; i < resampled.size(); i++){
         //ofDrawCircle(resampled[i], 10);
@@ -68,9 +85,9 @@ void ofApp::mousePressed(int x, int y, int button){
     ofPoint start = ofPoint(mouseX,
                             mouseY);
     float distance = 50;
-    float angle = 30; // ofRandom(0, PI);
-    float angleB = 232;
-    float angleC = -260;
+    float angle = 3 * PI/2; // ofRandom(0, PI);
+    float angleB = -1 * PI/4;
+    float angleC = -3 * PI/4;
     
     tempLine.a = start;
     tempLine.b = start + 100 * ofPoint(cos(angle),
